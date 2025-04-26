@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Foto</title>
+  <!-- Link ke file CSS eksternal -->
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body class="font-sans text-gray-800">
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center p-4 bg-white shadow-md">
+    <h1 class="text-2xl font-bold">Studio Foto</h1>
+    <ul class="flex gap-6 text-sm font-semibold">
+      <li><button onclick="showPage('galeri')">Hasil Studio</button></li>
+      <li><button onclick="showPage('info')">Info & Booking</button></li>
+    </ul>
+  </nav>
+
+  <!-- Halaman Galeri -->
+  <section id="galeri" class="p-8 bg-gray-50">
+    <h3 class="text-3xl font-bold text-center mb-6">Galeri Kami</h3>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <img src="https://source.unsplash.com/400x300/?photo,studio,1" class="rounded-xl shadow-md">
+      <img src="https://source.unsplash.com/400x300/?photo,studio,2" class="rounded-xl shadow-md">
+      <img src="https://source.unsplash.com/400x300/?photo,studio,3" class="rounded-xl shadow-md">
+      <img src="https://source.unsplash.com/400x300/?photo,studio,4" class="rounded-xl shadow-md">
+      <img src="https://source.unsplash.com/400x300/?photo,studio,5" class="rounded-xl shadow-md">
+      <img src="https://source.unsplash.com/400x300/?photo,studio,6" class="rounded-xl shadow-md">
+    </div>
+  </section>
+
+  <!-- Halaman Info & Booking -->
+  <section id="info" class="hidden">
+    <!-- Layanan -->
+    <section class="p-8">
+      <h3 class="text-3xl font-bold text-center mb-6">Layanan Kami</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white shadow-md p-6 rounded-xl">
+          <h4 class="text-xl font-semibold mb-2">Foto Keluarga</h4>
+          <p class="text-gray-600">Momen hangat bersama keluarga tercinta.</p>
+        </div>
+        <div class="bg-white shadow-md p-6 rounded-xl">
+          <h4 class="text-xl font-semibold mb-2">Foto Wisuda</h4>
+          <p class="text-gray-600">Abadikan pencapaian berhargamu.</p>
+        </div>
+        <div class="bg-white shadow-md p-6 rounded-xl">
+          <h4 class="text-xl font-semibold mb-2">Prewedding</h4>
+          <p class="text-gray-600">Romantis dan elegan sebelum hari bahagia.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking Form -->
+    <section class="p-8 bg-gray-100">
+      <h3 class="text-3xl font-bold text-center mb-6">Booking Studio</h3>
+      <form id="bookingForm" class="max-w-xl mx-auto space-y-4 bg-white p-6 rounded-xl shadow-md">
+        <input name="nama" placeholder="Nama Lengkap" required class="w-full p-2 border rounded">
+        <input name="instagram" type="text" placeholder="Nama Instagram" required class="w-full p-2 border rounded">
+        <input name="tanggal" type="text" id="tanggal" required class="w-full p-2 border rounded">
+        <select name="layanan" class="w-full p-2 border rounded">
+          <option value="Foto Keluarga">Foto Keluarga</option>
+          <option value="Foto Wisuda">Foto Wisuda</option>
+          <option value="Prewedding">Prewedding</option>
+          <option value="Foto Produk">Foto Produk</option>
+        </select>
+        <textarea name="pesan" placeholder="Pesan Tambahan" class="w-full p-2 border rounded"></textarea>
+        <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Kirim Pemesanan</button>
+      </form>
+      <div id="tanggalTerbooking" class="max-w-xl mx-auto mt-4 text-sm text-red-600"></div>
+      <div id="daftarTanggalTerbooking" class="max-w-xl mx-auto mt-6 text-sm text-gray-800 bg-white p-4 rounded shadow-md">
+        <h4 class="text-lg font-semibold mb-2">Tanggal yang Sudah Dibooking:</h4>
+        <ul id="listTanggal" class="list-disc list-inside text-red-500"></ul>
+      </div>
+    </section>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-4 bg-white shadow-inner mt-4">
+    <p class="text-sm text-gray-600">© 2025 Studio Foto. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    function showPage(page) {
+      document.getElementById('galeri').style.display = page === 'galeri' ? 'block' : 'none';
+      document.getElementById('info').style.display = page === 'info' ? 'block' : 'none';
+    }
+    showPage('galeri');
+
+    const tanggalInput = document.getElementById("tanggal");
+    const tanggalTerbooking = document.getElementById("tanggalTerbooking");
+    const listTanggal = document.getElementById("listTanggal");
+
+    let bookedDates = [];
+
+    const fetchBookedDates = async () => {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbx9MHoGEYKGcebU93XkKD2zmLzPw182X9163BsXOg9pvrKDpNzNsNWnuotyuMVCR3Fk/exec");
+      const result = await res.json();
+      bookedDates = result.bookedDates || [];
+
+      // Tampilkan dalam list
+      listTanggal.innerHTML = bookedDates.map(t => `<li>${t}</li>`).join("");
+
+      flatpickr("#tanggal", {
+        dateFormat: "Y-m-d",
+        disable: bookedDates,
+        onChange: function(selectedDates, dateStr) {
+          if (bookedDates.includes(dateStr)) {
+            tanggalTerbooking.textContent = `Tanggal ${dateStr} sudah dibooking.`;
+          } else {
+            tanggalTerbooking.textContent = "";
+          }
+        }
+      });
+    };
+
+    fetchBookedDates();
+
+    document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        nama: form.nama.value,
+        email: form.instagram.value,
+        tanggal: form.tanggal.value,
+        layanan: form.layanan.value,
+        pesan: form.pesan.value
+      };
+
+      const res = await fetch("https://script.google.com/macros/s/AKfycbx9MHoGEYKGcebU93XkKD2zmLzPw182X9163BsXOg9pvrKDpNzNsNWnuotyuMVCR3Fk/exec", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (res.ok) {
+        alert("Booking berhasil dikirim!");
+        form.reset();
+        fetchBookedDates();
+      } else {
+        alert("Gagal mengirim booking.");
+      }
+    });
+  </script>
+</body>
+</html>

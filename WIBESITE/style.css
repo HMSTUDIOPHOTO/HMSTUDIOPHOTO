@@ -1,0 +1,33 @@
+/* styles.css */
+
+/* Tailwind CSS Setup */
+@import url('https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css');
+/* Additional Custom Styles (if needed) */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+h1, h3 {
+  color: #1a202c;
+}
+
+button {
+  background-color: #4299e1;
+  color: white;
+}
+
+button:hover {
+  background-color: #3182ce;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+footer {
+  background-color: #ffffff;
+  color: #666;
+}
