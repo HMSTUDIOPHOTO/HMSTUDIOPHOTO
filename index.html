@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studio Foto</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Navigasi -->
+  <nav class="bg-white shadow mb-6 fade-in">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between">
+      <h1 class="text-2xl font-bold">Studio Foto</h1>
+      <div class="space-x-4">
+        <a href="#galeri" class="text-blue-600 hover:underline">Galeri</a>
+        <a href="#preview" class="text-blue-600 hover:underline">Preview</a>
+        <a href="#booking" class="text-blue-600 hover:underline">Booking</a>
+      </div>
+    </div>
+  </nav>
+    <!-- Galeri Foto -->
+  <section id="galeri" class="py-10 max-w-6xl mx-auto px-4 fade-in">
+    <h2 class="text-3xl font-bold text-center mb-8">Galeri Foto</h2>
+    <div id="galeriFoto" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <img src="assets/img/foto1.jpg" alt="foto1" class="rounded shadow-md hover-zoom" />
+      <img src="assets/img/foto2.jpg" alt="foto2" class="rounded shadow-md hover-zoom" />
+    </div>
+  </section>
+
+  </nav>
+    <h1>Booking Studio Foto</h1>
+    <form id="bookingForm">
+      <input type="text" name="nama" placeholder="Nama Lengkap" required />
+      <input type="instagram" name="instagram" placeholder="instagram" required />
+      <input type="text" id="datepicker" name="tanggal" placeholder="Pilih Tanggal Booking" required readonly />
+      <select name="jenis" required>
+        <option value="" disabled selected>Pilih Jenis Foto</option>
+        <option value="Prewedding">Prewedding</option>
+        <option value="Keluarga">Keluarga</option>
+        <option value="Graduation">Graduation</option>
+        <option value="Lainnya">Lainnya</option>
+      </select>
+      <select name="Paket" required>
+        <option value="" disabled selected>Pilih Paket Foto</option>
+        <option value="Paket A">Paket studio only A - Rp 150.000 / 1 jam </option>
+        <option value="Paket B">Paket studio only B - Rp 250.000 / 2 jam</option>
+        <option value="Paket C">Paket studio only C - Rp 350.000 / 3 jam</option>
+        <option value="Paket D">Paket lily - Rp 450.000 1 jam durasi</option>
+        <option value="Paket E">Paket Daisy - Rp 1.000.000 1 jam durasi</option>
+      </select>
+      <select name="jam" id="jam" required>
+      <option value="">Pilih Jam</option>
+      <option value="08:00">08:00</option>
+      <option value="09:00">09:00</option>
+      <option value="10:00">10:00</option>
+      <option value="11:00">11:00</option>
+      <option value="12:00">12:00</option>
+      <option value="13:00">13:00</option>
+      <option value="14:00">14:00</option>
+      <option value="15:00">15:00</option>
+      <option value="16:00">16:00</option>
+      <option value="17:00">17:00</option>
+      <option value="18:00">18:00</option>
+      <option value="19:00">19:00</option>
+      <textarea name="catatan" placeholder="Catatan Tambahan"></textarea>
+      <div id="previewFoto"></div>
+      <button type="submit">Kirim Booking</button>
+    </form>
+    <p id="success" class="hidden">Booking berhasil dikirim!</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+  <script src="assets/script.js"></script>
+</body>
+</html>
